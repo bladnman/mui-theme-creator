@@ -1,5 +1,5 @@
 import { Card, Typography } from '@mui/material';
-import { VStack } from '@components/mui-stacks.tsx';
+import { HStack, VStack } from '@components/mui-stacks.tsx';
 import Box from '@mui/material/Box';
 
 export function DemoCard() {
@@ -26,13 +26,21 @@ export function DemoCard() {
         >
           appColor.main
         </Box>
-        {['primary', 'secondary', 'warning', 'error', 'info', 'success'].map(
-          (color) => (
+
+        <HStack>
+          {['primary', 'secondary'].map((color) => (
             <Typography sx={{ color: `${color}.main` }} key={color}>
               {color}.main
             </Typography>
-          ),
-        )}
+          ))}
+        </HStack>
+        <HStack>
+          {['warning', 'error', 'info', 'success'].map((color) => (
+            <Typography sx={{ color: `${color}.main` }} key={color}>
+              {color}.main
+            </Typography>
+          ))}
+        </HStack>
       </VStack>
     </Card>
   );

@@ -23,11 +23,13 @@ export function SampleThemeParts() {
                   <MenuIcon />
                 </IconButton>
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                  Demo Toolbar
+                  Demo Appbar
                 </Typography>
                 <Button color="inherit">Example...</Button>
               </Toolbar>
             </AppBar>
+
+            {/*  B O D Y  */}
             <VStack sx={{ px: 3, py: 3 }} spacing={3}>
               <VStack>
                 <Typography>
@@ -40,10 +42,20 @@ export function SampleThemeParts() {
                 </HStack>
               </VStack>
 
-              <HStack vAlign={'leading'}>
+              <VStack
+                sx={{
+                  maxHeight: '15em',
+                  overflowY: 'scroll',
+                  border: '1px solid',
+                  borderColor: 'fg.light',
+                  borderRadius: '5px',
+                  padding: '10px',
+                }}
+              >
                 <DemoType />
-                <DemoCard />
-              </HStack>
+              </VStack>
+
+              <DemoCard />
             </VStack>
           </VStack>
         </HStack>
