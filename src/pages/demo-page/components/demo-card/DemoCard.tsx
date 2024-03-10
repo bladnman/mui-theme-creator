@@ -12,7 +12,7 @@ export function DemoCard() {
       }}
     >
       <VStack spacing={1}>
-        <Typography>Welcome to my theme</Typography>
+        <Typography variant={'h5'}>Demo Card</Typography>
         <Box
           sx={{
             backgroundColor: 'bg.light',

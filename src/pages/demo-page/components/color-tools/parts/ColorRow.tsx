@@ -1,8 +1,10 @@
 import { HStack } from '@components/mui-stacks.tsx';
 import { Typography } from '@mui/material';
 import InteractiveSwatch from '@pages/demo-page/components/color-tools/parts/InteractiveSwatch.tsx';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import LinkIcon from '@mui/icons-material/Link';
+import LinkOffIcon from '@mui/icons-material/LinkOff';
+
+import { useState } from 'react';
 interface ColorRowProps {
   name: string;
   colorArray: string[];
@@ -13,16 +15,27 @@ export default function ColorRow({
   colorArray,
   onChange,
 }: ColorRowProps) {
+  const [isLocked, setIsLocked] = useState(false);
+  const handleLockChange = () => {
+    const newIsLocked = !isLocked;
+    setIsLocked(newIsLocked);
+
+    if (newIsLocked) {
+      colorArray[1] = colorArray[0];
+      onChange(name, colorArray);
+    }
+  };
   const handleColorChange = (color: string, index: number) => {
-    const oldColors = [...colorArray];
     const newColors = [...colorArray];
     newColors[index] = color;
 
-    // match change if colors are the same
-    if (index === 0 && oldColors[0] === oldColors[1]) {
-      newColors[1] = color;
-    } else if (index === 1 && oldColors[0] === oldColors[1]) {
-      newColors[0] = color;
+    // match change if we are locked
+    if (isLocked) {
+      if (index === 0) {
+        newColors[1] = color;
+      } else {
+        newColors[0] = color;
+      }
     }
 
     onChange(name, newColors);
@@ -36,33 +49,18 @@ export default function ColorRow({
           onClick={(color) => handleColorChange(color, 0)}
         />
 
-        <HStack spacing={'5px'} sx={{ px: '5px' }}>
-          <HStack
-            sx={{
-              width: '13px',
-              opacity: 0.5,
-              overflow: 'hidden',
-            }}
-            onClick={() => {
-              colorArray[0] = colorArray[1];
-              handleColorChange(colorArray[1], 0);
-            }}
-          >
-            <ChevronLeftIcon />
-          </HStack>
-          <HStack
-            sx={{
-              width: '13px',
-              opacity: 0.5,
-              overflow: 'hidden',
-            }}
-            onClick={() => {
-              colorArray[1] = colorArray[0];
-              handleColorChange(colorArray[1], 0);
-            }}
-          >
-            <ChevronRightIcon />
-          </HStack>
+        <HStack
+          sx={{
+            opacity: isLocked ? 1.0 : 0.5,
+            px: 0.5,
+          }}
+          onClick={handleLockChange}
+        >
+          {isLocked ? (
+            <LinkIcon fontSize={'small'} />
+          ) : (
+            <LinkOffIcon fontSize={'small'} />
+          )}
         </HStack>
 
         <InteractiveSwatch

@@ -3,7 +3,7 @@ import React from 'react';
 import { HStack } from '@components/mui-stacks.tsx';
 import Box from '@mui/material/Box';
 
-export function ExampleText({
+export function DemoText({
   variant,
   children,
 }: {
