@@ -1,23 +1,74 @@
 import { HStack } from '@components/mui-stacks.tsx';
 import { Typography } from '@mui/material';
-import { useState } from 'react';
 import InteractiveSwatch from '@pages/demo-page/components/color-tools/parts/InteractiveSwatch.tsx';
-
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 interface ColorRowProps {
   name: string;
-  colors: string[];
+  colorArray: string[];
+  onChange: (name: string, colorArray: string[]) => void;
 }
-export default function ColorRow(props: ColorRowProps) {
-  const { name, colors } = props;
+export default function ColorRow({
+  name,
+  colorArray,
+  onChange,
+}: ColorRowProps) {
+  const handleColorChange = (color: string, index: number) => {
+    const oldColors = [...colorArray];
+    const newColors = [...colorArray];
+    newColors[index] = color;
 
-  const [lightColor, setLightColor] = useState<string>(colors[0]);
-  const [darkColor, setDarkColor] = useState<string>(colors[1] ?? colors[0]);
+    // match change if colors are the same
+    if (index === 0 && oldColors[0] === oldColors[1]) {
+      newColors[1] = color;
+    } else if (index === 1 && oldColors[0] === oldColors[1]) {
+      newColors[0] = color;
+    }
+
+    onChange(name, newColors);
+  };
 
   return (
     <HStack hAlign={'leading'} spacing={0.5}>
-      <HStack hAlign={'leading'} spacing={0.1}>
-        <InteractiveSwatch color={lightColor} onClick={setLightColor} />
-        <InteractiveSwatch color={darkColor} onClick={setDarkColor} />
+      <HStack hAlign={'leading'} spacing={0}>
+        <InteractiveSwatch
+          color={colorArray[0]}
+          onClick={(color) => handleColorChange(color, 0)}
+        />
+
+        <HStack spacing={'5px'} sx={{ px: '5px' }}>
+          <HStack
+            sx={{
+              width: '13px',
+              opacity: 0.5,
+              overflow: 'hidden',
+            }}
+            onClick={() => {
+              colorArray[0] = colorArray[1];
+              handleColorChange(colorArray[1], 0);
+            }}
+          >
+            <ChevronLeftIcon />
+          </HStack>
+          <HStack
+            sx={{
+              width: '13px',
+              opacity: 0.5,
+              overflow: 'hidden',
+            }}
+            onClick={() => {
+              colorArray[1] = colorArray[0];
+              handleColorChange(colorArray[1], 0);
+            }}
+          >
+            <ChevronRightIcon />
+          </HStack>
+        </HStack>
+
+        <InteractiveSwatch
+          color={colorArray[1] ?? colorArray[0]}
+          onClick={(color) => handleColorChange(color, 1)}
+        />
       </HStack>
       <Typography variant={'body2'}>{name}</Typography>
     </HStack>

@@ -1,6 +1,10 @@
 import React, { ReactNode, useMemo } from 'react';
-import { createTheme, PaletteColor, Theme } from '@mui/material';
-import { ThemeProvider } from '@mui/material/styles';
+import {
+  createTheme,
+  PaletteColor,
+  ThemeProvider,
+  Theme,
+} from '@mui/material/styles';
 import { useStoreContext } from '@components/Store.tsx';
 
 interface ThemeProps {

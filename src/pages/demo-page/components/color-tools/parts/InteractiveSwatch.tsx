@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import Swatch from '@pages/demo-page/components/color-tools/parts/Swatch.tsx';
 import { Popover } from '@mui/material';
 import { ChromePicker, ColorResult } from 'react-color';
-import { LightTheme } from '@theme/theme.tsx';
 interface InteractiveSwatchProps {
   color: string;
   onClick: (color: string) => void;
@@ -17,7 +16,12 @@ export default function InteractiveSwatch({
     onClick(color.hex);
   };
   return (
-    <PopupState variant="popover" popupId="demo-popup-popover">
+    <PopupState
+      variant="popover"
+      popupId="demo-popup-popover"
+      disableAutoFocus={true}
+      parentPopupState={null}
+    >
       {(popupState) => (
         <>
           <Box {...bindTrigger(popupState)}>
