@@ -13,14 +13,17 @@ interface ThemeProps {
 }
 
 const AppThemeProvider: React.FC<ThemeProps> = ({ colorMode, children }) => {
-  // const THEME_COLORS = {
-  //   pri: ['#3c5698', '#7390dc'],
-  //   sec: ['#20cf1a', '#20cf1a'],
-  //   fg: ['#38363e', '#c0bcc6'],
-  //   bg: ['#eeeef1', '#26262b'],
-  //   paper: ['#f9f9f9', '#232326'],
-  //   appColor: ['#e4ff00', '#c1d636'],
-  // }; // your colors here
+  // const THEME_COLORS = useMemo(
+  //   () => ({
+  //     pri: ['#3c5698', '#7390dc'],
+  //     sec: ['#20cf1a', '#20cf1a'],
+  //     fg: ['#38363e', '#c0bcc6'],
+  //     bg: ['#eeeef1', '#26262b'],
+  //     paper: ['#f9f9f9', '#232326'],
+  //     appColor: ['#e4ff00', '#c1d636'],
+  //   }),
+  //   [],
+  // ); // your colors here
   const { colors: THEME_COLORS } = useStoreContext(); // remove me
 
   const theme = useMemo(
