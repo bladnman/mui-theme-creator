@@ -1,4 +1,5 @@
 import React, { createContext, ReactNode, useContext, useState } from 'react';
+import { ThemePaletteColors } from '@theme/theme.tsx';
 
 export type StoreContextType = {
   colors: ThemePaletteColors;

@@ -12,6 +12,9 @@ interface ThemeProps {
   children?: ReactNode;
 }
 
+export type ThemePaletteColors = {
+  [key: string]: string[];
+};
 const AppThemeProvider: React.FC<ThemeProps> = ({ colorMode, children }) => {
   // const THEME_COLORS = useMemo(
   //   () => ({
